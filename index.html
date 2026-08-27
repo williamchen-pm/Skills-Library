@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PM & PMM Skills Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F0EDE8; --surface: #FFFFFF; --ink: #111010; --ink-mid: #484440;
+      --ink-muted: #918C86; --ink-dim: #C2BCB4; --rule: #E0DBD3;
+      --pm: #0052CC; --pm-bg: #E6F0FF;
+      --pmm: #6B21A8; --pmm-bg: #F3E8FF;
+      --col-comp: #B45309; --col-comp-bg: #FEF3C7;
+      --col-brand: #BE185D; --col-brand-bg: #FCE7F3;
+      --col-camp: #065F46; --col-camp-bg: #D1FAE5;
+      --col-ana: #1D4ED8; --col-ana-bg: #DBEAFE;
+      --col-biz: #7C3AED; --col-biz-bg: #EDE9FE;
+      --col-sales: #C2410C; --col-sales-bg: #FFEDD5;
+      --col-tooling: #0F766E; --col-tooling-bg: #CCFBF1;
+      --green: #16A34A; --green-bg: #DCFCE7;
+      --amber: #D97706; --amber-bg: #FEF3C7;
+      --radius: 12px; --radius-sm: 7px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Figtree', system-ui, sans-serif; min-height: 100vh; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    /* ── TOP NAV ── */
+    .topnav { background:#0F1A30; border-bottom:1px solid rgba(255,255,255,0.08); position:sticky; top:0; z-index:60; }
+    .topnav-inner { max-width:1600px; margin:0 auto; padding:0 32px; display:flex; align-items:center; gap:32px; height:58px; }
+    .topnav-brand { display:flex; align-items:center; gap:10px; }
+    .topnav-logo { width:30px; height:30px; border-radius:7px; background:linear-gradient(135deg,#FF6B35,#FF2D55); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:13px; font-weight:800; color:#fff; }
+    .topnav-brand-text { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:#fff; letter-spacing:-0.2px; }
+    .topnav-tabs { display:flex; gap:4px; height:100%; }
+    .topnav-tab { display:flex; align-items:center; gap:8px; padding:0 18px; background:none; border:none; border-bottom:2.5px solid transparent; color:rgba(255,255,255,0.5); font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer; transition:all 0.15s; height:100%; }
+    .topnav-tab:hover { color:rgba(255,255,255,0.85); }
+    .topnav-tab.active { color:#fff; border-bottom-color:#FF6B35; }
+    .topnav-tab svg { opacity:0.85; }
+    .topnav-count { display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 6px; border-radius:10px; background:rgba(255,107,53,0.2); border:1px solid rgba(255,107,53,0.4); color:#FF8C5A; font-size:11.5px; font-weight:700; }
+
+    /* view toggling */
+    .view-section { display:block; }
+    .view-section.hidden { display:none; }
+
+    /* ── HEADER ── */
+    header { background: #1E2D4A; padding: 52px 32px 48px; position: relative; overflow: hidden; }
+    header::before { content:""; position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+    header::after { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(to bottom,#FF6B35,#FF2D55); }
+    .header-inner { max-width: 1600px; margin: 0 auto; position: relative; z-index: 1; display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; }
+    .header-left { flex:1; min-width:280px; }
+    .header-eyebrow { font-family:'Syne',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:18px; }
+    header h1 { font-family:'Syne',sans-serif; font-size:48px; font-weight:800; color:#fff; line-height:1.1; margin-bottom:6px; letter-spacing:-0.5px; }
+    header h1 span { color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,0.4); }
+    header p { color:rgba(255,255,255,0.58); font-size:17px; max-width:480px; line-height:1.7; margin-top:14px; margin-bottom:24px; }
+    .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+    .legend-badge { display:inline-flex; align-items:center; gap:7px; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; border:1.5px solid; }
+    .legend-badge.pm  { color:#93C5FD; border-color:rgba(147,197,253,0.3); background:rgba(147,197,253,0.08); }
+    .legend-badge.pmm { color:#C4B5FD; border-color:rgba(196,181,253,0.3); background:rgba(196,181,253,0.08); }
+    .legend-dot { width:6px; height:6px; border-radius:50%; background:currentColor; flex-shrink:0; }
+
+    /* ── HOW TO USE PANEL (right side of header) ── */
+    .how-to-use { background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.12); border-radius:var(--radius); padding:20px 22px; max-width:340px; flex-shrink:0; }
+    .htu-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .htu-title::before { content:""; width:6px; height:6px; border-radius:50%; background:#FF6B35; flex-shrink:0; }
+    .htu-steps { display:flex; flex-direction:column; gap:10px; }
+    .htu-step { display:flex; gap:12px; align-items:flex-start; }
+    .htu-num { width:24px; height:24px; border-radius:50%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:rgba(255,255,255,0.7); flex-shrink:0; margin-top:1px; }
+    .htu-text { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.5; }
+    .htu-text strong { color:rgba(255,255,255,0.9); font-weight:600; }
+    .htu-text a { color:#93C5FD; text-decoration:none; }
+    .htu-text a:hover { text-decoration:underline; }
+    .htu-divider { height:1px; background:rgba(255,255,255,0.08); margin:4px 0; }
+    .htu-learn-more { margin-top:12px; cursor:pointer; background:none; border:none; font-family:inherit; font-size:13.5px; color:rgba(255,255,255,0.4); display:flex; align-items:center; gap:5px; transition:color 0.15s; padding:0; }
+    .htu-learn-more:hover { color:rgba(255,255,255,0.7); }
+
+    /* ── HOW TO USE MODAL ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; backdrop-filter:blur(4px); }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--surface); border-radius:16px; max-width:680px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.3); }
+    .modal-header { padding:28px 32px 0; display:flex; justify-content:space-between; align-items:flex-start; }
+    .modal-header h2 { font-family:'Syne',sans-serif; font-size:24px; font-weight:800; color:var(--ink); }
+    .modal-header p { font-size:15px; color:var(--ink-muted); margin-top:4px; }
+    .modal-close { width:32px; height:32px; border-radius:8px; background:var(--bg); border:1px solid var(--rule); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--ink-muted); flex-shrink:0; transition:all 0.15s; }
+    .modal-close:hover { background:var(--rule); }
+    .modal-body { padding:24px 32px 32px; }
+    .modal-section { margin-bottom:28px; }
+    .modal-section:last-child { margin-bottom:0; }
+    .modal-section-title { font-family:'Syne',sans-serif; font-size:13.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-muted); margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--rule); }
+    .modal-steps { display:flex; flex-direction:column; gap:16px; }
+    .modal-step { display:flex; gap:16px; }
+    .modal-step-num { width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:13px; font-weight:700; flex-shrink:0; }
+    .modal-step-body { flex:1; }
+    .modal-step-body strong { font-size:15px; font-weight:650; color:var(--ink); display:block; margin-bottom:4px; }
+    .modal-step-body p { font-size:14px; color:var(--ink-mid); line-height:1.55; }
+    .modal-step-body code { background:var(--bg); border:1px solid var(--rule); padding:1px 6px; border-radius:4px; font-family:'SF Mono','Fira Code',monospace; font-size:13px; color:var(--ink); }
+    .setup-tiers { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .setup-tier { border-radius:var(--radius-sm); padding:16px; border:1.5px solid; }
+    .setup-tier.works-now { background:var(--green-bg); border-color:#86EFAC; }
+    .setup-tier.needs-setup { background:var(--amber-bg); border-color:#FDE68A; }
+    .setup-tier-label { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
+    .setup-tier.works-now .setup-tier-label { color:var(--green); }
+    .setup-tier.needs-setup .setup-tier-label { color:var(--amber); }
+    .setup-tier p { font-size:14px; color:var(--ink-mid); line-height:1.5; }
+    .modal-tip { background:var(--bg); border:1px solid var(--rule); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--ink-mid); line-height:1.55; }
+    .modal-tip strong { color:var(--ink); }
+
+    /* ── NOTICE BAR ── */
+    .notice-bar { background:#FFF7ED; border-bottom:1px solid #FED7AA; padding:11px 32px; display:flex; align-items:center; gap:10px; font-size:14.5px; color:#92400E; font-weight:500; }
+    .notice-bar svg { color:#F97316; flex-shrink:0; }
+
+    /* ── CONTROLS ── */
+    .controls-bar { background:var(--surface); border-bottom:2px solid var(--rule); padding:14px 32px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; position:sticky; top:0; z-index:50; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+    .search-wrap { position:relative; flex:1; min-width:180px; max-width:300px; }
+    .search-wrap svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--ink-dim); pointer-events:none; }
+    #search { width:100%; padding:9px 12px 9px 34px; background:var(--bg); border:1.5px solid var(--rule); border-radius:var(--radius-sm); color:var(--ink); font-size:14.5px; font-family:inherit; outline:none; transition:border-color 0.15s; }
+    #search:focus { border-color:var(--pm); }
+    #search::placeholder { color:var(--ink-dim); }
+    .filter-group { display:flex; gap:5px; flex-wrap:wrap; }
+    .role-btn { padding:7px 16px; border-radius:6px; border:1.5px solid var(--rule); background:transparent; color:var(--ink-mid); font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:all 0.15s; }
+    .role-btn:hover { border-color:var(--ink-mid); color:var(--ink); }
+    .role-btn.active[data-role="All"] { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .role-btn.active[data-role="PM"]  { background:var(--pm); border-color:var(--pm); color:#fff; }
+    .role-btn.active[data-role="PMM"] { background:var(--pmm); border-color:var(--pmm); color:#fff; }
+    .cat-btn { padding:8px 16px; border-radius:20px; border:1.5px solid var(--rule); background:transparent; color:var(--ink-mid); font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+    .cat-btn:hover { border-color:var(--ink); color:var(--ink); background:var(--surface); }
+    .cat-btn.active { color:#fff; border-color:transparent; }
+    .cat-btn.active[data-cat="All"]                     { background:var(--ink); }
+    .cat-btn.active[data-cat="Competitive Intelligence"] { background:var(--col-comp); }
+    .cat-btn.active[data-cat="Brand & Content"]          { background:var(--col-brand); }
+    .cat-btn.active[data-cat="Campaign & Launch"]        { background:var(--col-camp); }
+    .cat-btn.active[data-cat="Analytics & Reporting"]    { background:var(--col-ana); }
+    .cat-btn.active[data-cat="Business Case"]            { background:var(--col-biz); }
+    .cat-btn.active[data-cat="Sales Enablement"]         { background:var(--col-sales); }
+    .cat-btn.active[data-cat="Requirements & Design"]               { background:var(--col-tooling); }
+    .count-label { margin-left:auto; font-size:13.5px; color:var(--ink-muted); font-weight:600; white-space:nowrap; }
+
+    /* ── GRID ── */
+    .grid-wrap { max-width:1600px; margin:28px auto 80px; padding:0 32px; }
+    .empty-state { text-align:center; padding:80px 0; display:none; }
+    .empty-state p { font-size:15px; color:var(--ink-muted); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    @media (max-width:1000px) { .grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:640px)  { .grid { grid-template-columns:1fr; } }
+
+    /* ── CARD ── */
+    .card { background:var(--surface); border:1.5px solid var(--rule); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; transition:transform 0.18s,box-shadow 0.18s,border-color 0.18s; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.11); border-color:#C8C3BB; }
+    .card-stripe { height:4px; width:100%; flex-shrink:0; }
+    .stripe-competitive { background:var(--col-comp); }
+    .stripe-brand       { background:var(--col-brand); }
+    .stripe-campaign    { background:var(--col-camp); }
+    .stripe-analytics   { background:var(--col-ana); }
+    .stripe-business    { background:var(--col-biz); }
+    .stripe-sales       { background:var(--col-sales); }
+    .stripe-tooling     { background:var(--col-tooling); }
+    .card-header { padding:20px 22px 18px; border-bottom:1.5px solid var(--rule); display:flex; align-items:flex-start; gap:14px; }
+    .card-icon { width:46px; height:46px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:23px; flex-shrink:0; }
+    .icon-competitive { background:var(--col-comp-bg); }
+    .icon-brand       { background:var(--col-brand-bg); }
+    .icon-campaign    { background:var(--col-camp-bg); }
+    .icon-analytics   { background:var(--col-ana-bg); }
+    .icon-business    { background:var(--col-biz-bg); }
+    .icon-sales       { background:var(--col-sales-bg); }
+    .icon-tooling     { background:var(--col-tooling-bg); }
+    .card-title-group { flex:1; min-width:0; }
+    .card-name { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; color:var(--ink); margin-bottom:10px; letter-spacing:-0.2px; line-height:1.2; }
+    .badge-row { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    .badge { display:inline-flex; align-items:center; padding:4px 10px; border-radius:4px; font-size:11.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; white-space:nowrap; }
+    .badge-pm  { color:#fff; background:var(--pm); }
+    .badge-pmm { color:#fff; background:var(--pmm); }
+    .badge-competitive { color:var(--col-comp);  background:var(--col-comp-bg); }
+    .badge-brand       { color:var(--col-brand); background:var(--col-brand-bg); }
+    .badge-campaign    { color:var(--col-camp);  background:var(--col-camp-bg); }
+    .badge-analytics   { color:var(--col-ana);   background:var(--col-ana-bg); }
+    .badge-business    { color:var(--col-biz);   background:var(--col-biz-bg); }
+    .badge-sales       { color:var(--col-sales); background:var(--col-sales-bg); }
+    .badge-tooling     { color:var(--col-tooling); background:var(--col-tooling-bg); }
+
+    /* ── SETUP BADGE ── */
+    .setup-badge { display:inline-flex; align-items:center; gap:4px; padding:4px 9px; border-radius:4px; font-size:11.5px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase; white-space:nowrap; cursor:pointer; border:none; font-family:inherit; }
+    .setup-badge.ready   { color:var(--green); background:var(--green-bg); }
+    .setup-badge.setup   { color:var(--amber); background:var(--amber-bg); }
+    .setup-badge svg { flex-shrink:0; }
+
+    .card-body { padding:18px 20px; flex:1; display:flex; flex-direction:column; gap:13px; }
+    .card-desc { color:var(--ink-mid); font-size:15px; line-height:1.6; }
+    .role-section { display:flex; flex-direction:column; gap:7px; }
+    .role-line { display:flex; gap:10px; align-items:flex-start; font-size:14.5px; }
+    .role-label { flex-shrink:0; font-weight:700; font-size:11px; letter-spacing:0.06em; margin-top:2px; text-transform:uppercase; padding:2px 8px; border-radius:3px; }
+    .role-label.pm  { color:#fff; background:var(--pm); }
+    .role-label.pmm { color:#fff; background:var(--pmm); }
+    .role-text { color:var(--ink-mid); line-height:1.55; font-size:14.5px; }
+    .divider { height:1px; background:var(--rule); }
+
+    /* ── SETUP NOTICE (per card) ── */
+    .card-setup-notice { background:var(--amber-bg); border:1px solid #FDE68A; border-radius:var(--radius-sm); padding:11px 14px; display:flex; gap:9px; align-items:flex-start; font-size:14px; color:#78350F; line-height:1.5; }
+    .card-setup-notice svg { flex-shrink:0; margin-top:1px; color:var(--amber); }
+    .card-setup-notice a { color:var(--amber); font-weight:600; text-decoration:none; cursor:pointer; }
+    .card-setup-notice a:hover { text-decoration:underline; }
+    .card-relates-notice { background:#EEF2FF; border:1px solid #C7D2FE; border-radius:var(--radius-sm); padding:11px 14px; display:flex; gap:9px; align-items:flex-start; font-size:13.5px; color:#3730A3; line-height:1.5; }
+    .card-relates-notice svg { flex-shrink:0; margin-top:1px; color:#4F46E5; }
+    .card-relates-line { margin-bottom:3px; }
+    .card-relates-line:last-child { margin-bottom:0; }
+    .card-relates-target { color:#4F46E5; font-weight:600; }
+
+    /* ── PROMPTS ── */
+    .prompts-toggle { display:flex; align-items:center; gap:8px; cursor:pointer; color:var(--ink-muted); font-size:14px; font-weight:600; user-select:none; padding:0; background:none; border:none; font-family:inherit; width:100%; text-align:left; transition:color 0.15s; }
+    .prompts-toggle:hover { color:var(--ink); }
+    .toggle-chevron { width:16px; height:16px; border-radius:4px; background:var(--bg); border:1.5px solid var(--rule); display:flex; align-items:center; justify-content:center; font-size:8px; flex-shrink:0; transition:all 0.2s; }
+    .prompts-toggle.open .toggle-chevron { transform:rotate(90deg); background:var(--ink); border-color:var(--ink); color:#fff; }
+    .prompts-body { display:none; padding-top:9px; }
+    .prompts-body.open { display:block; }
+    .prompt-item { display:flex; align-items:flex-start; gap:9px; padding:9px 11px; margin-bottom:6px; background:var(--bg); border-radius:var(--radius-sm); border:1px solid var(--rule); cursor:pointer; transition:all 0.15s; }
+    .prompt-item:last-child { margin-bottom:0; }
+    .prompt-item:hover { border-color:var(--pm); background:#EEF4FF; }
+    .prompt-text { flex:1; font-size:13px; color:var(--ink-mid); line-height:1.5; font-family:'SF Mono','Fira Code','Cascadia Code',monospace; }
+    .copy-btn { flex-shrink:0; width:24px; height:24px; border-radius:5px; background:var(--surface); border:1px solid var(--rule); color:var(--ink-dim); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+    .copy-btn:hover { background:var(--pm); border-color:var(--pm); color:#fff; }
+    .copy-btn.copied { background:#065F46; border-color:#065F46; color:#fff; }
+
+    /* ── CARD FOOTER ── */
+    .card-footer { padding:12px 20px; border-top:1.5px solid var(--rule); display:flex; align-items:center; justify-content:space-between; gap:8px; background:var(--bg); }
+    .card-leads-bar { display:flex; align-items:center; gap:10px; padding:11px 22px; background:#F0F4FF; border-bottom:1px solid #DCE4FB; flex-wrap:wrap; }
+    .card-leads-label { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:#3B5BDB; text-transform:uppercase; letter-spacing:0.05em; flex-shrink:0; }
+    .card-leads-people { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    .card-lead-pill { display:inline-flex; align-items:center; gap:6px; padding:3px 11px 3px 3px; border-radius:20px; font-size:13px; font-weight:600; background:#fff; color:#1E3A8A; border:1.5px solid #C5D2F6; white-space:nowrap; }
+    .card-lead-avatar { width:20px; height:20px; border-radius:50%; background:linear-gradient(135deg,#3B5BDB,#5B7CF0); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; color:#fff; flex-shrink:0; }
+    .download-btn { display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:var(--radius-sm); background:var(--ink); border:none; color:#fff; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; text-decoration:none; transition:all 0.15s; white-space:nowrap; }
+    .download-btn:hover { background:#2D2A26; box-shadow:0 4px 12px rgba(0,0,0,0.2); transform:translateY(-1px); }
+    .access-hint { font-size:13px; color:var(--ink-dim); display:flex; align-items:center; gap:4px; font-weight:500; }
+
+    @media (max-width:820px) {
+      header { padding:32px 24px; }
+      .header-inner { flex-direction:column; }
+      .how-to-use { max-width:100%; }
+      .controls-bar,.notice-bar,.grid-wrap { padding-left:16px; padding-right:16px; }
+      header h1 { font-size:32px; }
+      .grid { grid-template-columns:1fr; }
+      .setup-tiers { grid-template-columns:1fr; }
+    }
+    .showcase-wrap { max-width:1600px; margin:36px auto 80px; padding:0 32px; }
+    .showcase-header { display:flex; align-items:center; gap:14px; margin-bottom:24px; padding-bottom:16px; border-bottom:2px solid var(--rule); }
+    .showcase-title-group h2 { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--ink); }
+    .showcase-title-group p { font-size:15px; color:var(--ink-muted); margin-top:4px; }
+    .showcase-eyebrow { display:inline-flex; align-items:center; gap:7px; padding:5px 13px; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; background:#FDF4FF; border:1.5px solid #E9D5FF; color:#7C3AED; flex-shrink:0; }
+    .showcase-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    @media (max-width:1000px) { .showcase-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:640px)  { .showcase-grid { grid-template-columns:1fr; } }
+
+    .showcase-card { background:var(--surface); border:1.5px solid var(--rule); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; transition:transform 0.18s,box-shadow 0.18s,border-color 0.18s; }
+    .showcase-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.11); border-color:#C8C3BB; }
+    .showcase-card-stripe { height:4px; background:linear-gradient(90deg,#7C3AED,#A855F7); }
+    .showcase-card-header { padding:20px 22px 16px; border-bottom:1.5px solid var(--rule); }
+    .showcase-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; }
+    .showcase-card-name { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; color:var(--ink); line-height:1.2; }
+    .showcase-live-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; background:#DCFCE7; color:#166534; border:1px solid #86EFAC; white-space:nowrap; flex-shrink:0; }
+    .showcase-live-dot { width:6px; height:6px; border-radius:50%; background:#16A34A; animation:pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .showcase-owner-row { display:flex; align-items:center; gap:8px; }
+    .showcase-avatar { width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#7C3AED,#A855F7); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:#fff; flex-shrink:0; }
+    .showcase-owner-name { font-size:13px; font-weight:600; color:var(--ink-mid); }
+    .showcase-owner-label { font-size:12px; color:var(--ink-dim); }
+    .showcase-card-body { padding:18px 22px; flex:1; display:flex; flex-direction:column; gap:14px; }
+    .showcase-desc { font-size:15px; color:var(--ink-mid); line-height:1.6; }
+    .showcase-tags { display:flex; gap:6px; flex-wrap:wrap; }
+    .showcase-tag { display:inline-flex; align-items:center; padding:4px 10px; border-radius:4px; font-size:11.5px; font-weight:600; background:#F3E8FF; color:#7C3AED; }
+    .showcase-card-footer { padding:14px 22px; border-top:1.5px solid var(--rule); background:var(--bg); display:flex; gap:10px; flex-wrap:wrap; }
+    .showcase-launch-btn { display:inline-flex; align-items:center; gap:7px; padding:8px 16px; border-radius:var(--radius-sm); background:#7C3AED; border:none; color:#fff; font-size:13.5px; font-weight:600; font-family:inherit; cursor:pointer; text-decoration:none; transition:all 0.15s; }
+    .showcase-launch-btn:hover { background:#6D28D9; box-shadow:0 4px 12px rgba(124,58,237,0.3); transform:translateY(-1px); }
+
+    @media (max-width:820px) { .showcase-wrap { padding-left:16px; padding-right:16px; } }
+  </style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2>How to use skill files on Claude.ai</h2>
+        <p>No CLI required — everything runs in your browser.</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">What is a skill file?</div>
+        <div class="modal-tip">
+          A <strong>SKILL.md</strong> is a plain text file that tells Claude exactly how to behave for a specific task — what questions to ask, how to structure its output, which steps to follow, and what guardrails to apply. Think of it as a pre-built expert prompt you upload once and reuse forever. Claude reads it at the start of a conversation and follows it automatically.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Two types of skills on this page</div>
+        <div class="setup-tiers">
+          <div class="setup-tier works-now">
+            <div class="setup-tier-label">✓ Works immediately</div>
+            <p>Upload <code>SKILL.md</code> only. No extra files needed. Claude follows the framework and uses web search + your input to produce the output.</p>
+            <p style="margin-top:8px;font-size:11.5px;color:#166534;">Competitive Analysis, Campaign Plan, Brand Voice, SEO Audit, Content Creation, and more.</p>
+          </div>
+          <div class="setup-tier needs-setup">
+            <div class="setup-tier-label">⚑ Upload references folder too</div>
+            <p>Upload <code>SKILL.md</code> + all files from the <code>references/</code> subfolder. Claude reads them as context during the conversation.</p>
+            <p style="margin-top:8px;font-size:11.5px;color:#78350F;">ROI Story, Demo Prep, QBR Prep, Account Research, and others that generate structured output files.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Setup: Claude.ai Project (one-time, 3 minutes)</div>
+        <div class="modal-steps">
+          <div class="modal-step">
+            <div class="modal-step-num">1</div>
+            <div class="modal-step-body">
+              <strong>Create a Project in Claude.ai</strong>
+              <p>Go to <a href="https://claude.ai" target="_blank">claude.ai</a> → click <strong>Projects</strong> in the left sidebar → <strong>New Project</strong>. Name it something like <em>"PM Skills"</em>.</p>
+            </div>
+          </div>
+          <div class="modal-step">
+            <div class="modal-step-num">2</div>
+            <div class="modal-step-body">
+              <strong>Skill files available on request</strong>
+              <p>Click <strong>Request Sample</strong> on any card below. Each skill is a folder containing a <code>SKILL.md</code> and a <code>references/</code> subfolder.</p>
+            </div>
+          </div>
+          <div class="modal-step">
+            <div class="modal-step-num">3</div>
+            <div class="modal-step-body">
+              <strong>Upload the files to your Project</strong>
+              <p>In your Project, click <strong>Add content</strong> → <strong>Upload files</strong>. For <span style="color:var(--green);font-weight:600;">✓ Works immediately</span> skills, upload just the <code>SKILL.md</code>. For <span style="color:var(--amber);font-weight:600;">⚑ Upload references</span> skills, upload the <code>SKILL.md</code> plus every file inside the <code>references/</code> folder.</p>
+            </div>
+          </div>
+          <div class="modal-step">
+            <div class="modal-step-num">4</div>
+            <div class="modal-step-body">
+              <strong>Start a new chat inside the Project</strong>
+              <p>Open your Project → <strong>New chat</strong>. Claude automatically reads all uploaded files. Use any of the <strong>example prompts</strong> on the card to trigger the skill, or describe what you need in your own words.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Tips for best results</div>
+        <div class="modal-tip">
+          <strong>One skill per Project</strong> works best — it keeps Claude focused. You can create multiple Projects, one per skill you use frequently.<br><br>
+          <strong>Paste context upfront.</strong> Skills like ROI Story and Demo Prep ask clarifying questions — the more deal context you include in your first message, the fewer follow-up questions Claude needs to ask.<br><br>
+          <strong>FP Intelligence connector:</strong> Some skills are designed to query internal CRM data via FP Intelligence. If that connector is available on your account, add it to the Project for the best output. Without it, Claude falls back to web search and your pasted input — still useful, just less personalized.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">
+      <span class="topnav-logo">SL</span>
+      <span class="topnav-brand-text">PM Claude Hub</span>
+    </div>
+    <div class="topnav-tabs">
+      <button class="topnav-tab active" data-view="skills" onclick="switchView('skills')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Skills Library
+      </button>
+      <button class="topnav-tab" data-view="showcase" onclick="switchView('showcase')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Built with Claude
+        <span class="topnav-count" id="showcase-nav-count"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-eyebrow">Claude Skills Library</div>
+      <h1>PM &amp; PMM<br><span>Skills Library</span></h1>
+      <p>Curated Claude skills for Product Management and Product Marketing — copy a prompt and go, or download the skill file for the full experience.</p>
+      <div class="header-badges">
+        <span class="legend-badge pm"><span class="legend-dot"></span>Product Management</span>
+        <span class="legend-badge pmm"><span class="legend-dot"></span>Product Marketing</span>
+      </div>
+    </div>
+    <div class="how-to-use">
+      <div class="htu-title">How to use on Claude.ai</div>
+      <div class="htu-steps">
+        <div class="htu-step">
+          <div class="htu-num">1</div>
+          <div class="htu-text"><strong>Create a Project</strong> in <a href="https://claude.ai" target="_blank">claude.ai</a></div>
+        </div>
+        <div class="htu-divider"></div>
+        <div class="htu-step">
+          <div class="htu-num">2</div>
+          <div class="htu-text"><strong>Skill files available on request</strong> using the button on any card</div>
+        </div>
+        <div class="htu-divider"></div>
+        <div class="htu-step">
+          <div class="htu-num">3</div>
+          <div class="htu-text"><strong>Upload SKILL.md</strong> (+ references folder if the card shows ⚑) to your Project</div>
+        </div>
+        <div class="htu-divider"></div>
+        <div class="htu-step">
+          <div class="htu-num">4</div>
+          <div class="htu-text"><strong>Start a new chat</strong> inside the Project and use any example prompt</div>
+        </div>
+      </div>
+      <button class="htu-learn-more" onclick="openModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Full setup guide &amp; tips
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- SKILLS VIEW -->
+<div class="view-section" id="view-skills">
+
+<!-- NOTICE BAR -->
+<div class="notice-bar">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  <span><strong>Samples on request.</strong> Skill files are not published for download. Use the request link on any card.</span>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls-bar">
+  <div class="search-wrap">
+    <svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M10 6.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-.8 3.6 2.4 2.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <input type="text" id="search" placeholder="Search skills…" />
+  </div>
+  <div class="filter-group" id="role-filters">
+    <button class="role-btn active" data-role="All">All</button>
+    <button class="role-btn" data-role="PM">PM</button>
+    <button class="role-btn" data-role="PMM">PMM</button>
+  </div>
+  <div class="filter-group" id="cat-filters">
+    <button class="cat-btn active" data-cat="All">All categories</button>
+    <button class="cat-btn" data-cat="Competitive Intelligence">Competitive</button>
+    <button class="cat-btn" data-cat="Brand & Content">Brand &amp; Content</button>
+    <button class="cat-btn" data-cat="Campaign & Launch">Campaign</button>
+    <button class="cat-btn" data-cat="Analytics & Reporting">Analytics</button>
+    <button class="cat-btn" data-cat="Business Case">Business Case</button>
+    <button class="cat-btn" data-cat="Sales Enablement">Sales</button>
+    <button class="cat-btn" data-cat="Requirements & Design">Req &amp; Design</button>
+  </div>
+  <div class="count-label" id="count-label"></div>
+</div>
+
+<div class="grid-wrap">
+  <div class="empty-state" id="empty-state"><p>No skills match your search.</p></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+</div><!-- /SKILLS VIEW -->
+
+<!-- SHOWCASE VIEW -->
+<div class="view-section hidden" id="view-showcase">
+<div class="showcase-wrap">
+  <div class="showcase-header">
+    <div class="showcase-title-group">
+      <h2>Built with Claude</h2>
+      <p>Tools, agents, and prototypes created by the [Company] PM team — ready to use now.</p>
+    </div>
+    <span class="showcase-eyebrow">✦ Team Showcase</span>
+  </div>
+  <div class="showcase-grid" id="showcase-grid"></div>
+</div>
+</div><!-- /SHOWCASE VIEW -->
+
+<script>
+const SKILL_LINKS = {
+  "account-research":"https://linkedin.com/in/williamweiyuchen",
+  "brand-review":"https://linkedin.com/in/williamweiyuchen",
+  "brand-voice":"https://linkedin.com/in/williamweiyuchen",
+  "brand-enforcement":"https://linkedin.com/in/williamweiyuchen",
+  "call-prep":"https://linkedin.com/in/williamweiyuchen",
+  "call-summary":"https://linkedin.com/in/williamweiyuchen",
+  "campaign-plan":"https://linkedin.com/in/williamweiyuchen",
+  "campaign-planning":"https://linkedin.com/in/williamweiyuchen",
+  "competitive-analysis":"https://linkedin.com/in/williamweiyuchen",
+  "competitive-brief":"https://linkedin.com/in/williamweiyuchen",
+  "competitive-intelligence":"https://linkedin.com/in/williamweiyuchen",
+  "content-creation":"https://linkedin.com/in/williamweiyuchen",
+  "create-an-asset":"https://linkedin.com/in/williamweiyuchen",
+  "customer-readiness":"https://linkedin.com/in/williamweiyuchen",
+  "daily-briefing":"https://linkedin.com/in/williamweiyuchen",
+  "demo-prep":"https://linkedin.com/in/williamweiyuchen",
+  "discovery-prep":"https://linkedin.com/in/williamweiyuchen",
+  "draft-content":"https://linkedin.com/in/williamweiyuchen",
+  "draft-outreach":"https://linkedin.com/in/williamweiyuchen",
+  "email-sequence":"https://linkedin.com/in/williamweiyuchen",
+  "forecast":"https://linkedin.com/in/williamweiyuchen",
+  "performance-analytics":"https://linkedin.com/in/williamweiyuchen",
+  "performance-report":"https://linkedin.com/in/williamweiyuchen",
+  "pipeline-review":"https://linkedin.com/in/williamweiyuchen",
+  "post-call-coaching":"https://linkedin.com/in/williamweiyuchen",
+  "qbr-prep":"https://linkedin.com/in/williamweiyuchen",
+  "rfp-response":"https://linkedin.com/in/williamweiyuchen",
+  "roi-story":"https://linkedin.com/in/williamweiyuchen",
+  "sales-handoff":"https://linkedin.com/in/williamweiyuchen",
+  "sdr-call-prep":"https://linkedin.com/in/williamweiyuchen",
+  "seo-audit":"https://linkedin.com/in/williamweiyuchen",
+  "strategic-assessment":"https://linkedin.com/in/williamweiyuchen",
+  "win-loss-analysis":"https://linkedin.com/in/williamweiyuchen",
+  "jira-epic-writing":"https://linkedin.com/in/williamweiyuchen",
+  "ui-prototyping":"https://linkedin.com/in/williamweiyuchen"
+};
+
+// Leads per skill
+const LEADS = {
+  "brand-review":            ["Contributor"],
+  "brand-voice":             ["Contributor"],
+  "brand-enforcement":       ["Contributor"],
+  "content-creation":        ["Contributor"],
+  "draft-content":           ["Contributor"],
+  "create-an-asset":         ["Contributor"],
+  "seo-audit":               ["Contributor"],
+  "roi-story":               ["William Chen"],
+  "competitive-analysis":    ["Contributor"],
+  "competitive-brief":       ["Contributor"],
+  "competitive-intelligence":["Contributor"],
+  "win-loss-analysis":       ["Contributor"],
+  "jira-epic-writing":       ["William Chen"],
+  "ui-prototyping":          ["Contributor"],
+};
+
+// Cross-references — skills that call on or defer to another skill
+const RELATES = {
+  "brand-voice": [
+    { id:"brand-enforcement", note:"Defers to Brand Enforcement for logo placement and fallback rules." }
+  ],
+  "brand-enforcement": [
+    { id:"brand-voice", note:"Referenced by Brand Voice for logo guidance — pairs well together." },
+    { id:"brand-review", note:"Brand Review checks written content; this skill enforces visual/formatting standards on deliverables." }
+  ]
+};
+
+// Showcase items — team-built tools and prototypes
+const SHOWCASE = [
+  {
+    id: "product-matrix-agent",
+    name: "[Company] Product Matrix Agent",
+    owner: "Contributor",
+    ownerInitials: "—",
+    desc: "An interactive AI agent for exploring the [Company] product matrix. Browse and filter firewall specs by model series, or ask natural language questions and get instant answers grounded in product data.",
+    tags: ["AI Agent","Product Data","Firewall Matrix","Claude API"],
+    url: "#",
+    live: true
+  },
+  {
+    id: "api-hub",
+    name: "API Documentation Hub",
+    owner: "William Chen",
+    ownerInitials: "WC",
+    desc: "Two prototypes for the developer.example.com/apis initiative (an internal initiative): a full design prototype of the unified API reference portal, plus a proof-of-concept demoing autonomous persona agents that independently review a problem statement and surface distinct gaps.",
+    tags: ["API Hub","Design Prototype","Persona Agents","an internal initiative"],
+    links: [
+      { label: "Design Prototype", url: "#" },
+      { label: "Persona Review Demo", url: "#" }
+    ],
+    live: true
+  }
+];
+
+// "ready" = SKILL.md only | "setup" = needs references folder too
+const SETUP = {
+  "competitive-analysis":"ready","competitive-brief":"ready","competitive-intelligence":"ready",
+  "win-loss-analysis":"ready","brand-review":"ready","brand-voice":"ready",
+  "brand-enforcement":"setup",
+  "content-creation":"ready","draft-content":"ready","create-an-asset":"ready",
+  "campaign-plan":"ready","campaign-planning":"ready","email-sequence":"ready",
+  "performance-analytics":"ready","performance-report":"ready","seo-audit":"ready",
+  "strategic-assessment":"ready","call-summary":"ready","draft-outreach":"ready",
+  "sdr-call-prep":"ready","pipeline-review":"ready","daily-briefing":"ready",
+  "post-call-coaching":"ready","jira-epic-writing":"ready","ui-prototyping":"ready",
+  "account-research":"setup","demo-prep":"setup","roi-story":"setup",
+  "qbr-prep":"setup","rfp-response":"setup","call-prep":"setup",
+  "discovery-prep":"setup","sales-handoff":"setup","customer-readiness":"setup",
+  "forecast":"setup"
+};
+
+const CAT_META = {
+  "Competitive Intelligence":{cls:"competitive",stripe:"stripe-competitive",icon:"icon-competitive"},
+  "Brand & Content":{cls:"brand",stripe:"stripe-brand",icon:"icon-brand"},
+  "Campaign & Launch":{cls:"campaign",stripe:"stripe-campaign",icon:"icon-campaign"},
+  "Analytics & Reporting":{cls:"analytics",stripe:"stripe-analytics",icon:"icon-analytics"},
+  "Business Case":{cls:"business",stripe:"stripe-business",icon:"icon-business"},
+  "Sales Enablement":{cls:"sales",stripe:"stripe-sales",icon:"icon-sales"},
+  "Requirements & Design":{cls:"tooling",stripe:"stripe-tooling",icon:"icon-tooling"}
+};
+
+const SKILLS = [
+  {id:"competitive-analysis",name:"Competitive Analysis",icon:"🔬",category:"Competitive Intelligence",roles:["PM","PMM"],desc:"Deep-dive analysis of competitor products, positioning, messaging, and market presence. Builds a complete competitive picture with content gaps, positioning maps, and battlecard-ready insights.",pm:"Analyze competitor feature sets and market strategy to identify white space, sharpen your roadmap, and set buying criteria that favor your strengths.",pmm:"Map competitor messaging angles and content gaps to find positioning opportunities your competitors haven't claimed.",prompts:["Analyze [Competitor A] and [Competitor B] — we're a network security platform targeting MSPs","Build a messaging matrix comparing our positioning vs [Competitor] on integration depth and TCO","Find content gaps we should fill vs [Competitor] in the SMB cybersecurity space","Create a battlecard for our sales team against [Competitor]"]},
+  {id:"competitive-brief",name:"Competitive Brief",icon:"📋",category:"Competitive Intelligence",roles:["PMM"],desc:"Rapidly researches a competitor and produces a structured brief covering positioning, messaging themes, content strategy, strengths, weaknesses, and recommended actions.",pmm:"Get a quick but structured read on any competitor before a launch, pricing review, or messaging refresh — without hours of manual research.",prompts:["Competitive brief on [Competitor] — we sell network security to mid-market","Positioning brief on [Competitor A] and [Competitor B] ahead of our Q3 product launch","Research [Competitor]'s content strategy and find their messaging gaps"]},
+  {id:"competitive-intelligence",name:"Competitive Intelligence",icon:"⚔️",category:"Competitive Intelligence",roles:["PM","PMM"],desc:"Researches up to 5 competitors via web and internal data, then generates an interactive HTML battlecard with clickable competitor tabs, feature comparison matrix, and objection-handling talk tracks.",pm:"Track what competitors are shipping and where their product gaps create opportunity for your roadmap.",pmm:"Build a shareable battlecard your sales and marketing teams can reference when competitors come up in deals.",prompts:["Build a competitive battlecard — we're [Company], main competitors are Palo Alto, Fortinet, and Check Point","What has [Competitor] shipped in the last 90 days and how do we respond?","Research competitor reviews on G2 and TrustRadius — what do customers consistently complain about?"]},
+  {id:"win-loss-analysis",name:"Win / Loss Analysis",icon:"📊",category:"Competitive Intelligence",roles:["PM","PMM"],desc:"Analyzes closed-deal cohorts to surface win/loss patterns across competitors, sales execution, product fit, and funnel stage.",pm:"Identify which feature gaps and use case mismatches are costing deals — the most direct signal for roadmap prioritization.",pmm:"Uncover positioning gaps, messaging weaknesses, and ICP misalignment impacting conversion rates.",prompts:["Win loss analysis for Q1 2026 — why are we losing new deals?","What feature requests appear most often on lost deals vs won deals?","Which competitors are we losing to most and at which stage of the funnel?","Win rate by industry and company size — where's our ICP best fit?"]},
+  {id:"brand-review",name:"Brand Review",icon:"✅",category:"Brand & Content",roles:["PMM"],desc:"Reviews any content against brand voice, style guidelines, and messaging pillars. Flags deviations by severity and provides before/after rewrites for top issues.",pmm:"Run launch copy, product announcements, feature descriptions, or sales decks through a brand consistency check before they go out.",prompts:["Brand review this product launch email: [paste content]","Is this press release headline on-brand? [paste content]","Review this feature one-pager against our style guide","Check this landing page copy for brand voice consistency: [URL or paste]"]},
+  {id:"brand-voice",name:"Brand Voice",icon:"🎙️",category:"Brand & Content",roles:["PMM"],desc:"Framework for defining, documenting, and enforcing brand voice. Covers voice attributes, tone adaptation by channel, style rules, and terminology management.",pmm:"Define or document your product's brand voice from scratch, or audit and align existing guidelines. Essential before a rebrand or major messaging refresh.",prompts:["Help me define our brand voice — we're a cybersecurity platform for MSPs, direct but not corporate","Create a tone-by-channel guide: blog, LinkedIn, product UI, error messages, and sales decks","What should our terminology list include for our firewall product line?","Review our current brand voice doc and suggest improvements: [paste or link]"]},
+  {id:"content-creation",name:"Content Creation",icon:"✍️",category:"Brand & Content",roles:["PMM"],desc:"Guidelines and frameworks for creating effective marketing content across blog, social, email, landing pages, press releases, and case studies — including SEO and CTA best practices.",pmm:"Use as a reference framework when briefing writers, reviewing drafts, or creating content directly.",prompts:["Write a blog post about outcome-based cybersecurity — 1000 words for IT decision-makers","Create a LinkedIn post announcing our new cyber warranty — professional but human tone","Draft a case study: customer reduced TCO by 4x switching from Palo Alto to [Company]","Write a landing page for our MSP partner program — lead with revenue upside"]},
+  {id:"draft-content",name:"Draft Content",icon:"📝",category:"Brand & Content",roles:["PMM"],desc:"Generates full drafts of any marketing content type — blog posts, social posts, email newsletters, landing page copy, press releases, and case studies — with SEO guidance and multiple headline options.",pmm:"Skip the blank page. Provide your key messages and audience, and get a ready-to-edit draft with SEO recommendations built in.",prompts:["Draft a press release: [Company] launches Gen 8 with industry-first built-in cyber warranty","Write a LinkedIn post about our 99% security effectiveness rating — target CISOs","Draft a product launch email for our new NSa Series — audience is existing MSP partners","Create a case study: [Customer] cut their security stack cost by 60% with [Company]"]},
+  {id:"create-an-asset",name:"Create an Asset",icon:"🎨",category:"Brand & Content",roles:["PMM"],desc:"Creates a complete marketing asset from scratch — one-pagers, data sheets, battle cards, executive presentations, infographics, or solution briefs — formatted and ready for review.",pmm:"Skip the design brief and first draft cycle. Describe what you need and get a structured, formatted asset ready to polish and publish.",prompts:["Create a one-pager for [Company] CSE — audience is IT directors at mid-market companies","Build a data sheet for our Gen 8 TZ Series — specs, key features, and use cases","Design a solution brief for MSSPs: how the management platform reduces management overhead","Create an exec presentation slide set: [Company] platform vision — 6 slides"]},
+  {id:"campaign-plan",name:"Campaign Plan",icon:"🗺️",category:"Campaign & Launch",roles:["PMM"],desc:"Generates a full campaign brief with objectives, target audience, key messages, channel strategy, week-by-week content calendar, required assets, success metrics, and budget allocation.",pmm:"Build a complete go-to-market brief for a product launch, feature release, or demand generation push.",prompts:["Build a campaign plan for our Gen 8 firewall launch — target MSSPs, 6-week timeline","Campaign brief to drive trial signups — Q2, mid-market focus","Plan a re-engagement campaign for lapsed MSP partners","Build a campaign for the RSA Conference — awareness and demo booking goals"]},
+  {id:"campaign-planning",name:"Campaign Planning",icon:"📅",category:"Campaign & Launch",roles:["PMM"],desc:"Deep framework for campaign strategy — audience segmentation, message hierarchy, channel selection with benchmarks, content calendar creation, budget allocation, and KPIs by campaign type.",pmm:"Use as a strategic reference when designing a campaign from scratch or auditing an existing one.",prompts:["Help me build an audience profile for our SMB security campaign","What channels should we prioritize for a product launch targeting IT managers at 100–500 person companies?","Build a content calendar for a 4-week product launch — blog, email, social, and paid","What KPIs should we track for an awareness campaign vs a lead gen campaign?"]},
+  {id:"email-sequence",name:"Email Sequence",icon:"📧",category:"Campaign & Launch",roles:["PMM"],desc:"Designs and drafts complete multi-email sequences with full copy, send timing, branching logic, A/B test suggestions, exit conditions, and performance benchmarks by sequence type.",pmm:"Build onboarding flows, product launch sequences, feature adoption campaigns, or re-engagement drips — with ready-to-use copy and automation logic.",prompts:["Design a 5-email onboarding sequence for new [Company] MSP partners — activate in 14 days","Build a product launch drip for our Gen 8 announcement — 4 emails, existing customer base","Create a re-engagement sequence for partners who haven't logged in for 60+ days","Draft a post-webinar follow-up sequence — 3 emails, goal is to book a demo"]},
+  {id:"performance-analytics",name:"Performance Analytics",icon:"📈",category:"Analytics & Reporting",roles:["PM","PMM"],desc:"Comprehensive frameworks for measuring marketing and product performance — benchmarks by channel, attribution models, optimization loops, and dashboard design principles.",pm:"Reference frameworks for tracking product adoption metrics, feature usage, pipeline influence, and go-to-market impact at the portfolio level.",pmm:"Use as the reference layer when building dashboards, reviewing campaign results, or presenting to leadership.",prompts:["What metrics should I track to measure the success of our partner onboarding program?","Build a KPI framework for our product launch — awareness, consideration, and conversion metrics","Explain the difference between first-touch and last-touch attribution and when to use each","What's a good email open rate benchmark for B2B cybersecurity audiences?"]},
+  {id:"performance-report",name:"Performance Report",icon:"📄",category:"Analytics & Reporting",roles:["PMM"],desc:"Generates structured marketing performance reports — campaign reports, channel reports, content performance, or full cross-channel summaries — with trend analysis and next steps.",pmm:"Turn raw metrics or data exports into a polished report you can share with leadership or use for quarterly business reviews.",prompts:["Build a Q1 marketing performance report — I'll paste the key metrics","Analyze our email channel performance for March: [paste data]","Create a campaign results summary for our Gen 8 launch — what worked and what to change","Draft a monthly marketing report for the leadership team — executive summary style"]},
+  {id:"seo-audit",name:"SEO Audit",icon:"🔍",category:"Analytics & Reporting",roles:["PMM"],desc:"Audits a website's SEO health — keyword opportunities, on-page analysis, content gaps vs competitors, technical checks, and competitor SEO comparison. Produces a prioritized action plan.",pmm:"Audit your product pages, blog, or partner portal to find where you're leaving organic traffic on the table.",prompts:["SEO audit of example.com — focus on the firewall and network security pages","Find keyword opportunities in the MSP cybersecurity space we should target","Content gaps vs [Competitor] — what topics do they rank for that we don't?","Technical SEO check on our partner portal: [URL]"]},
+  {id:"roi-story",name:"ROI Story",icon:"💼",category:"Business Case",roles:["PM","PMM"],desc:"Builds a custom ROI business case with an Excel model (conservative + aggressive scenarios), a Word one-pager for decision makers, and a follow-up email. Grounded in benchmark data and real deal context.",pm:"Quantify the business value of a product capability or investment to support roadmap prioritization or executive approval.",pmm:"Build the value narrative and ROI model behind your product's positioning — useful for messaging frameworks and sales enablement.",prompts:["Build an ROI story for [Company] vs Palo Alto — buyer is a CISO at a 500-person company","Help me quantify the TCO savings of consolidating from a 3-vendor stack to [Company]","Build a business case for upgrading from Gen 7 to Gen 8 firewalls","ROI model for our cyber warranty — what's the financial value to an MSP?"]},
+  {id:"strategic-assessment",name:"Strategic Assessment",icon:"🧭",category:"Business Case",roles:["PM","PMM"],desc:"Provides structured strategic analysis — market opportunity sizing, build/buy/partner evaluation, product-market fit assessment, and scenario planning for major investment decisions.",pm:"Frame a major roadmap decision, evaluate a new market opportunity, or structure an executive-ready strategic brief with defensible data.",prompts:["Should we build, buy, or partner for [capability] — help me structure the analysis","Size the market opportunity for [Company] in the managed security services space","Build a product-market fit assessment for our new SMB firewall tier"]},
+  {id:"forecast",name:"Forecast",icon:"📊",category:"Business Case",roles:["PM"],desc:"Generates a weighted sales forecast with best/likely/worst scenarios, commit vs. upside breakdown, and gap analysis against quota — structured for pipeline reviews and leadership reporting.",pm:"Build or stress-test a pipeline forecast before a QBR or leadership review. Surfaces coverage gaps, call-out risks, and upside levers.",prompts:["Build a Q2 forecast — I'll paste my pipeline data","Gap analysis: we're at 72% of quota with 3 weeks left — what's achievable?","Stress-test my commit list — flag deals with low confidence signals","Build a forecast model for a new territory with no historical data"]},
+  {id:"account-research",name:"Account Research",icon:"🏢",category:"Sales Enablement",roles:["PM","PMM"],desc:"Researches a target account and produces a structured brief — business overview, strategic priorities, tech stack, buying signals, key stakeholders, and [Company] fit hypothesis.",pm:"Use before partner or enterprise QBRs to understand the account's strategic context and frame your conversation around their business outcomes.",pmm:"Research target accounts for ABM campaigns, executive briefings, or field marketing events — fast, structured, and ready to act on.",prompts:["Research [Company] — we're pitching our network security platform","What are [Company]'s strategic IT priorities and how do they align with [Company]?","Build an account brief for [Company] ahead of our executive meeting next week","Who are the likely security buyers at [Company] and what are their known priorities?"]},
+  {id:"call-prep",name:"Call Prep",icon:"📞",category:"Sales Enablement",roles:["PM"],desc:"Prepares a structured pre-call brief — account context, stakeholder profiles, likely objections, discovery questions, and a recommended call agenda tailored to the deal stage.",pm:"Walk into any customer or partner call with context, a clear objective, and the right questions prepared — in under 5 minutes.",prompts:["Prep me for a discovery call with [Company] — they're evaluating firewall vendors","Build a call brief for our renewal with [Partner] — they've flagged pricing concerns","What questions should I ask a CISO consolidating from a multi-vendor stack?","Prep for a QBR with [Partner] — they're at 60% of their revenue target"]},
+  {id:"call-summary",name:"Call Summary",icon:"🗒️",category:"Sales Enablement",roles:["PM"],desc:"Turns raw meeting notes or a transcript into a structured call summary — key takeaways, decisions, action items, next steps, and follow-up email draft.",pm:"Convert your meeting notes into a clean, shareable summary and follow-up email in one step. Never lose track of commitments or next steps.",prompts:["Summarize this customer call — extract all action items and next steps: [paste notes]","Turn this transcript into a structured summary with decisions, owners, and deadlines: [paste]","Write a follow-up email based on these call notes — professional, action-oriented: [paste]","Identify any unresolved questions or commitments from this transcript: [paste]"]},
+  {id:"demo-prep",name:"Demo Prep",icon:"🎯",category:"Sales Enablement",roles:["PM"],desc:"Builds a tailored demo plan — customer context, recommended flow, talking points per screen, anticipated objections, and leave-behind summary — matched to the prospect's use case and buying stage.",pm:"Customize your demo narrative for a specific account before you get on the call. Makes every demo feel built for that customer, not generic.",prompts:["Build a demo plan for [Company] — they're an MSSP evaluating our the console platform","What should I highlight in a [Company] demo for a school district's IT director?","Customize our standard firewall demo flow for a customer coming from Fortinet","What objections should I anticipate in a demo for a prospect who lost data in a ransomware attack?"]},
+  {id:"discovery-prep",name:"Discovery Prep",icon:"🔎",category:"Sales Enablement",roles:["PM"],desc:"Structures a discovery call plan with situation, problem, implication, and need-payoff questions mapped to your solution — aligned to SPIN or MEDDIC frameworks.",pm:"Go into discovery with a question set designed to surface the right pain, quantify the problem, and position your solution's value.",prompts:["Build discovery questions for a 300-person manufacturing company evaluating network security","MEDDIC discovery checklist for an enterprise firewall deal — what do I need to qualify?","What are the best questions to ask a prospect who says they're 'happy with their current vendor'?","Build a discovery framework for [Company] CSE — remote workforce security use case"]},
+  {id:"sales-handoff",name:"Sales Handoff",icon:"🤝",category:"Sales Enablement",roles:["PM"],desc:"Creates a structured deal handoff document — deal summary, stakeholder map, open issues, competitive context, commercial terms, and recommended onboarding approach.",pm:"Ensure nothing falls through the cracks when a deal changes hands. Covers everything the receiving team needs to pick up and run.",prompts:["Write a deal handoff from SDR to AE — here are my notes: [paste]","Create an AE-to-CS handoff for [Customer] who just closed on the console + CSE","Build a handoff template for MSSP accounts moving from sales to onboarding","Summarize this deal for the SE taking over the POC: [paste context]"]},
+  {id:"sdr-call-prep",name:"SDR Call Prep",icon:"📱",category:"Sales Enablement",roles:["PM"],desc:"Prepares a concise outbound call plan — prospect research, call opener, value prop for their role, top qualifying questions, and objection responses — optimized for cold and warm outreach.",pm:"Get SDRs prepped fast with a call guide that's account-specific, not generic. Covers opener, hook, and objection handling.",prompts:["Prep me for a cold call to the IT director at [Company] — we're pitching network security","Build objection responses for 'we already have Fortinet' — from an SDR's perspective","What's the best cold call opener for a CISO at a 200-person healthcare company?","Write a 30-second value prop for the management platform — for an SDR calling an MSP owner"]},
+  {id:"pipeline-review",name:"Pipeline Review",icon:"🔄",category:"Sales Enablement",roles:["PM"],desc:"Analyzes a pipeline snapshot to surface deal health, coverage gaps, stale opportunities, and push/pull risk — with a prioritized action list for the current week.",pm:"Walk into your weekly pipeline review with a clear picture of what to push, what to pull, and where to focus your time.",prompts:["Review my pipeline for this week — I'll paste the deal list: [paste]","Which deals in my pipeline should I prioritize this week and why?","Flag the stalled deals in this pipeline and suggest a re-engagement approach: [paste]","I have 14 open opportunities — help me triage them by close probability"]},
+  {id:"rfp-response",name:"RFP Response",icon:"📑",category:"Sales Enablement",roles:["PM"],desc:"Structures and drafts responses to RFPs, security questionnaires, and procurement forms — with compliance language, feature mapping, and differentiation statements tailored to the buyer's criteria.",pm:"Turn an RFP into a competitive response faster. Covers requirement mapping, compliance language, and how to frame your differentiators.",prompts:["Help me respond to this RFP section — I'll paste the requirements: [paste]","Draft a response to a security questionnaire for a financial services RFP — [Company] firewall","We're responding to a government procurement — what compliance certifications should I highlight?","Turn these RFP requirements into a differentiation narrative vs Palo Alto: [paste]"]},
+  {id:"qbr-prep",name:"QBR Prep",icon:"📆",category:"Sales Enablement",roles:["PM"],desc:"Builds a structured QBR agenda and talking points — performance summary, business review, product roadmap highlights, joint success metrics, and recommended next-period goals — tailored to the account.",pm:"Walk into a partner or customer QBR with a prepared narrative that connects their results to your product and positions the next quarter's priorities.",prompts:["Build a QBR agenda for [Partner] — they're a Platinum partner at 80% of annual target","What sections should I include in a QBR for an MSSP managing 200 endpoints with [Company]?","Help me prepare talking points for the business review section of our Q2 QBR","Draft a joint success plan slide for our QBR with [Customer]"]},
+  {id:"post-call-coaching",name:"Post-Call Coaching",icon:"🎓",category:"Sales Enablement",roles:["PM"],desc:"Analyzes a call transcript or summary and provides structured coaching feedback — what went well, what to improve, specific skill areas, and a suggested approach for the next interaction.",pm:"Use after customer or partner calls to identify coaching moments, sharpen your questioning technique, and track improvement over time.",prompts:["Coach me on this call — here's the transcript: [paste]","What did I do well and what should I improve in this discovery call? [paste notes]","Score this demo call on objection handling and give me specific feedback: [paste]","Based on this call, what should I do differently in the follow-up meeting?"]},
+  {id:"customer-readiness",name:"Customer Readiness",icon:"✔️",category:"Sales Enablement",roles:["PM"],desc:"Assesses a customer's readiness to expand, upgrade, or renew — based on usage signals, support history, stakeholder engagement, and product fit — with a recommended next action.",pm:"Evaluate account health before a renewal or upsell conversation. Identify risk signals early and plan the right intervention before the customer goes quiet.",prompts:["Assess renewal readiness for [Customer] — here's their usage and support history: [paste]","What signals should I look for to identify upsell-ready accounts in my portfolio?","Build a health scorecard for our MSSP accounts — what metrics matter most?","This customer hasn't logged in for 45 days — what's the right re-engagement approach?"]},
+  {id:"daily-briefing",name:"Daily Briefing",icon:"☀️",category:"Sales Enablement",roles:["PM"],desc:"Generates a structured daily priority brief — top deals to act on, follow-ups due, news on key accounts, and a recommended focus order for the day.",pm:"Start every day with clarity on where to focus. Pulls together deal priorities, overdue tasks, and account signals into a single actionable brief.",prompts:["Build my daily brief — here's my open pipeline and tasks for today: [paste]","What should I focus on today given these 8 open opportunities? [paste deal list]","Summarize overnight news on [Company] and [Company] — my two biggest deals","I have 3 calls today — help me prioritize prep time: [paste context]"]},
+  {id:"draft-outreach",name:"Draft Outreach",icon:"✉️",category:"Sales Enablement",roles:["PM"],desc:"Writes personalized outreach emails and LinkedIn messages — cold, warm, follow-up, re-engagement, and referral asks — matched to the prospect's role, industry, and trigger event.",pm:"Generate personalized outreach for any situation in 30 seconds. Covers cold prospecting, post-event follow-up, re-engagement, and referral requests.",prompts:["Write a cold email to the CISO at a 500-person financial services firm — we're pitching [Company]","Follow-up email after RSA — they stopped by our booth and expressed interest in our the console platform","Re-engagement email for a prospect who went dark after a demo 6 weeks ago","LinkedIn message to a potential champion at [Company] — warm intro through a mutual connection"]},
+  {id:"jira-epic-writing",name:"Jira Epic Writing",icon:"🎫",category:"Requirements & Design",roles:["PM"],desc:"Selects the right Jira epic format (General, Conditional Logic, Sequential Flows, Performance & Reliability, or Integration & API Contract) based on feature context, then produces a complete Description field and capped Acceptance Criteria for the the management platform team.",pm:"Stop writing epics from scratch. Describe the feature or problem and get a properly formatted epic with the right AC structure, correct format selection, and the console platform context already applied.",prompts:["Write a Jira epic for [feature] — it's a frontend-only UI change on the the console dashboard","Draft an epic for the new tenant onboarding flow — users go through 4 steps sequentially","Create an initiative for the the console support page redesign — problem is still being validated","Write AC for a feature that behaves differently for Super Admin vs Tenant Admin roles","Draft an integration epic — the console needs to call the analytics API to trigger a cross-launch"]},
+  {id:"ui-prototyping",name:"UI Prototyping",icon:"🖥️",category:"Requirements & Design",roles:["PM"],desc:"Generates pixel-accurate [Company] UI mockups, components, and prototypes strictly enforcing the the design system design system — correct color tokens, typography, spacing, component naming, and nav shell structure for any the console, NSM, WNM, CMC, MSW, CSE, or Endpoint Protection screen.",pm:"Get a production-accurate HTML prototype of any the console screen or flow in minutes. The full the design system token set, component rules, and brand constraints are baked in — no guesswork, no off-brand colors or fonts.",prompts:["Build a prototype of the the console tenant management page — include the left nav shell","Design a modal dialog for bulk device assignment — follows the design system modal spec","Mock up the the console dashboard overview card for Endpoint Protection endpoint count","Prototype the 3-step onboarding wizard for new tenant creation in the console","Create a data table component showing firewall inventory with status chips and pagination"]},
+  {id:"brand-enforcement",name:"Brand Enforcement",icon:"🎨",category:"Brand & Content",roles:["PMM"],desc:"Enforces the brand standard on every visual or formatted deliverable — official color palette, typography, the mandatory confidentiality statement, and logo usage — across slide decks, Word docs, spreadsheets, PDFs, HTML dashboards, charts, and Mermaid diagrams.",pmm:"Run this before producing any chart, deck, dashboard, or formatted document so the output automatically carries the correct [Company] palette, fonts, confidentiality statement, and logo — no manual color-matching required.",prompts:["Apply our brand colors to this chart before I export it","Make this PowerPoint deck on-brand — add the logo and confidentiality statement","What are our official brand colors and hex codes?","Fix the colors in this Mermaid diagram to match our palette","Build an on-brand Excel dashboard with the [Company] color palette applied"]}
+];
+
+// Display-name lookup for cross-reference notes
+const SKILL_NAMES = {};
+SKILLS.forEach(s => { SKILL_NAMES[s.id] = s.name; });
+
+function buildCard(s) {
+  const m = CAT_META[s.category]||{cls:"analytics",stripe:"stripe-analytics",icon:"icon-analytics"};
+  const setup = SETUP[s.id]||"ready";
+  const leads = LEADS[s.id]||[];
+  const initials = n => n.split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  const leadsHtml = leads.length ? `<div class="card-leads-bar">
+    <span class="card-leads-label">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Lead${leads.length>1?"s":""}
+    </span>
+    <div class="card-leads-people">
+      ${leads.map(l=>`<span class="card-lead-pill"><span class="card-lead-avatar">${initials(l)}</span>${l}</span>`).join("")}
+    </div>
+  </div>` : "";
+  const roleSection = `<div class="role-section">
+    ${s.pm ?`<div class="role-line"><span class="role-label pm">PM</span><span class="role-text">${s.pm}</span></div>`:""}
+    ${s.pmm?`<div class="role-line"><span class="role-label pmm">PMM</span><span class="role-text">${s.pmm}</span></div>`:""}
+  </div>`;
+  const promptsHtml = s.prompts.map(p=>`
+    <div class="prompt-item" onclick="copyPrompt(this,'${p.replace(/'/g,"\\'")}')">
+      <span class="prompt-text">${p}</span>
+      <button class="copy-btn" title="Copy">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>`).join("");
+  const roleBadges = s.roles.map(r=>`<span class="badge badge-${r.toLowerCase()}">${r}</span>`).join("");
+  const setupBadge = setup==="ready"
+    ? `<button class="setup-badge ready" onclick="openModal()" title="Works with SKILL.md only — click for setup guide">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Works immediately
+      </button>`
+    : `<button class="setup-badge setup" onclick="openModal()" title="Upload SKILL.md + references folder — click for setup guide">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Upload references too
+      </button>`;
+  const setupNotice = setup==="setup"
+    ? `<div class="card-setup-notice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>For full output, upload <strong>SKILL.md</strong> + all files from the <strong>references/</strong> subfolder into your Claude.ai Project. <a onclick="openModal()">Setup guide →</a></span>
+      </div>` : "";
+  const relates = RELATES[s.id]||[];
+  const relatesHtml = relates.length ? `<div class="card-relates-notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <div>
+        ${relates.map(r=>`<div class="card-relates-line"><strong>Related:</strong> ${r.note}${SKILL_NAMES[r.id]?` <span class="card-relates-target">(${SKILL_NAMES[r.id]})</span>`:""}</div>`).join("")}
+      </div>
+    </div>` : "";
+  const odLink = SKILL_LINKS[s.id];
+  const footer = odLink?`<div class="card-footer">
+    <a class="download-btn" href="${odLink}" target="_blank" rel="noopener noreferrer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Request Sample
+    </a>
+    <span class="access-hint">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      on request
+    </span>
+  </div>`:"";
+  return `<div class="card" data-roles="${s.roles.join(",")}" data-cat="${s.category}" data-name="${s.name.toLowerCase()} ${s.desc.toLowerCase()}" data-setup="${setup}">
+    <div class="card-stripe ${m.stripe}"></div>
+    <div class="card-header">
+      <div class="card-icon ${m.icon}">${s.icon}</div>
+      <div class="card-title-group">
+        <div class="card-name">${s.name}</div>
+        <div class="badge-row">${roleBadges}<span class="badge badge-${m.cls}">${s.category}</span>${setupBadge}</div>
+      </div>
+    </div>
+    ${leadsHtml}
+    <div class="card-body">
+      <div class="card-desc">${s.desc}</div>
+      ${setupNotice}
+      ${relatesHtml}
+      ${(s.pm||s.pmm)?'<div class="divider"></div>':''}
+      ${roleSection}
+      <div class="divider"></div>
+      <div>
+        <button class="prompts-toggle" onclick="togglePrompts(this)">
+          <span class="toggle-chevron">▶</span>
+          Example prompts (${s.prompts.length})
+        </button>
+        <div class="prompts-body">${promptsHtml}</div>
+      </div>
+    </div>
+    ${footer}
+  </div>`;
+}
+
+function render(skills) {
+  const sorted = [...skills].sort((a,b)=>a.name.localeCompare(b.name));
+  const grid=document.getElementById("grid");
+  const empty=document.getElementById("empty-state");
+  grid.innerHTML=sorted.map(buildCard).join("");
+  empty.style.display=sorted.length===0?"block":"none";
+  document.getElementById("count-label").textContent=`${sorted.length} skill${sorted.length!==1?"s":""}`;
+}
+
+let activeRole="All",activeCat="All";
+function applyFilters(){
+  const q=document.getElementById("search").value.toLowerCase();
+  render(SKILLS.filter(s=>{
+    const roleOk=activeRole==="All"||s.roles.includes(activeRole);
+    const catOk=activeCat==="All"||s.category===activeCat;
+    const qOk=!q||(s.name+s.desc+(s.pm||"")+(s.pmm||"")+s.prompts.join(" ")).toLowerCase().includes(q);
+    return roleOk&&catOk&&qOk;
+  }));
+}
+document.getElementById("role-filters").addEventListener("click",e=>{
+  const btn=e.target.closest(".role-btn");if(!btn)return;
+  document.querySelectorAll(".role-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");activeRole=btn.dataset.role;applyFilters();
+});
+document.getElementById("cat-filters").addEventListener("click",e=>{
+  const btn=e.target.closest(".cat-btn");if(!btn)return;
+  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");activeCat=btn.dataset.cat;applyFilters();
+});
+document.getElementById("search").addEventListener("input",applyFilters);
+function togglePrompts(btn){btn.classList.toggle("open");btn.nextElementSibling.classList.toggle("open");}
+function copyPrompt(item,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=item.querySelector(".copy-btn");
+    btn.classList.add("copied");
+    btn.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+    setTimeout(()=>{btn.classList.remove("copied");btn.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;},1800);
+  });
+}
+function openModal(){document.getElementById("modal").classList.add("open");document.body.style.overflow="hidden";}
+function closeModal(){document.getElementById("modal").classList.remove("open");document.body.style.overflow="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+render(SKILLS);
+
+// Render showcase
+(function renderShowcase() {
+  const grid = document.getElementById("showcase-grid");
+  if (!grid) return;
+  grid.innerHTML = [...SHOWCASE].sort((a,b)=>a.name.localeCompare(b.name)).map(s => `
+    <div class="showcase-card">
+      <div class="showcase-card-stripe"></div>
+      <div class="showcase-card-header">
+        <div class="showcase-card-top">
+          <div class="showcase-card-name">${s.name}</div>
+          ${s.live ? `<span class="showcase-live-badge"><span class="showcase-live-dot"></span>Live</span>` : ""}
+        </div>
+        <div class="showcase-owner-row">
+          <div class="showcase-avatar">${s.ownerInitials}</div>
+          <div>
+            <div class="showcase-owner-name">${s.owner}</div>
+            <div class="showcase-owner-label">Builder &amp; Owner</div>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-card-body">
+        <div class="showcase-desc">${s.desc}</div>
+        <div class="showcase-tags">${s.tags.map(t=>`<span class="showcase-tag">${t}</span>`).join("")}</div>
+      </div>
+      <div class="showcase-card-footer">
+        ${(s.links && s.links.length)
+          ? s.links.map(l=>`<a class="showcase-launch-btn" href="${l.url}" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              ${l.label}
+            </a>`).join("")
+          : `<a class="showcase-launch-btn" href="${s.url}" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open Tool
+            </a>`}
+      </div>
+    </div>`).join("");
+})();
+
+// View switching
+function switchView(view) {
+  document.getElementById("view-skills").classList.toggle("hidden", view!=="skills");
+  document.getElementById("view-showcase").classList.toggle("hidden", view!=="showcase");
+  document.querySelectorAll(".topnav-tab").forEach(t=>t.classList.toggle("active", t.dataset.view===view));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+// Set showcase count in nav
+(function(){ const c=document.getElementById("showcase-nav-count"); if(c) c.textContent=SHOWCASE.length; })();
+</script>
+</body>
+</html>
