@@ -1,6 +1,6 @@
 # Claude Skills Library
 
-### ▶ [View the live library](https://williamchen-pm.github.io/Skills-Library/)
+### ▶ [View the live library](https://williamchen-pm.github.io/skills-library/)
 
 A library of structured AI instruction files that standardizes how a product team works with AI, so output is consistent and repeatable rather than different every time someone opens a chat window.
 
